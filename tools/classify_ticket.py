@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 load_dotenv()
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
-print("🔐 EURI API Key:", os.getenv("EURI_API_KEY"))
-EURI_API_URL = "https://api.euron.one/api/v1/euri/alpha/chat/completions"
+print("EURI API Key:", os.getenv("EURI_API_KEY"))
+EURI_API_URL = "https://api.euron.one/api/v1/euri/chat/completions"
 EURI_API_KEY = os.getenv("EURI_API_KEY")
 def classify_ticket(text: str) -> dict:
     prompt = f"""
@@ -15,7 +15,7 @@ You are a smart support ticket classifier.
 Given a customer ticket, classify it into:
 - Sentiment: Positive, Negative, Neutral
 - Issue Type: Billing, Technical, Login, General, Other
-
+There is no scope for wrong classification. Do Classify it correctly.
 Respond ONLY with a JSON object like this:
 {{
   "sentiment": "Negative",
@@ -43,7 +43,7 @@ Customer Ticket:
     try:
         response = requests.post(EURI_API_URL, headers=headers, json=payload)
         result = response.json()
-        print("📨 EURI Raw Response:", result)
+        print("EURI Raw Response:", result)
         content = result["choices"][0]["message"]["content"]
 
         # Safer JSON parsing
@@ -54,5 +54,5 @@ Customer Ticket:
         }
 
     except Exception as e:
-        print("⚠️ Classification Error:", e)
+        print("Classification Error:", e)
         return {"sentiment": "Unknown", "issue_type": "General"}
