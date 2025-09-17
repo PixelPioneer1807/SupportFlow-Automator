@@ -21,9 +21,9 @@ def update_ticket(row_number, sentiment, issue_type, reply):
         sheet.update_cell(row_number, 5, sentiment)     # Sentiment → E
         sheet.update_cell(row_number, 6, issue_type)    # IssueType_Label → F
         sheet.update_cell(row_number, 7, reply)         # AutoReply → G
-        print(f"✅ Updated Row {row_number}")
+        print(f"✅ Updated Row {row_number}", file=sys.stderr)
     except Exception as e:
-        print(f"❌ Error updating row {row_number}: {e}")
+        print(f"❌ Error updating row {row_number}: {e}", file=sys.stderr)
 
 def append_processed_ticket(ticket, sentiment, issue_type, reply):
     try:

@@ -15,9 +15,9 @@ EMAIL_APP_PASSWORD = os.getenv("EMAIL_APP_PASSWORD")
 if not EMAIL_ADDRESS or not EMAIL_APP_PASSWORD:
     raise ValueError("EMAIL_ADDRESS or EMAIL_APP_PASSWORD not found in .env")
 
-print("Loaded credentials:")
-print("Email:", EMAIL_ADDRESS)
-print("App Password (length):", len(EMAIL_APP_PASSWORD))
+# print("Loaded credentials:")
+# print("Email:", EMAIL_ADDRESS)
+# print("App Password (length):", len(EMAIL_APP_PASSWORD))
 
 
 # ✅ Reusable Email Sender Function
@@ -29,7 +29,7 @@ def send_email_smtp(to, subject, body):
         msg['Subject'] = subject
         msg.attach(MIMEText(body, 'plain'))
 
-        print(f"Connecting to smtp.gmail.com to send email to {to}...")
+        print(f"Connecting to smtp.gmail.com to send email to {to}...", file=sys.stderr)
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.set_debuglevel(0)  # Set to 1 to enable full SMTP debug
         server.starttls()
@@ -37,8 +37,8 @@ def send_email_smtp(to, subject, body):
         server.send_message(msg)
         server.quit()
 
-        print("✅ Email sent successfully to:", to)
+        # print("✅ Email sent successfully to:", to)
         return {"status": "success", "message": f"Email sent to {to}"}
     except Exception as e:
-        print("❌ Failed to send email:", e)
+        # print("❌ Failed to send email:", e)
         return {"status": "error", "message": str(e)}

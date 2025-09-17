@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
-print("EURI API KEY (partial):", os.getenv("EURI_API_KEY")[:20])
+# print("EURI API KEY (partial):", os.getenv("EURI_API_KEY")[:20])
 
 EURI_API_URL = "https://api.euron.one/api/v1/euri/chat/completions"
 EURI_API_KEY = os.getenv("EURI_API_KEY")
@@ -38,9 +38,9 @@ Only return the final response message.
     try:
         response = requests.post(EURI_API_URL, headers=headers, json=payload)
         result = response.json()
-        print(result)
+        # print(result)
         return result["choices"][0]["message"]["content"].strip()
 
     except Exception as e:
-        print("❌ Reply Generation Error:", e)
+        # print("❌ Reply Generation Error:", e)
         return "We’re experiencing some technical issues. Our support team will respond as soon as possible."

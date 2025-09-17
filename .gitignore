@@ -1,2 +1,7 @@
 .env
 google_creds.json
+node_modules
+uv.lock
+pyproject.toml
+package-lock.json
+package.json
